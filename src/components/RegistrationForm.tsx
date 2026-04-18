@@ -1,12 +1,33 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ClipboardCheck, Users, FileText, Calendar, User, Mail, Phone, Upload, Send } from 'lucide-react';
+import { 
+  ClipboardCheck, 
+  Users, 
+  FileText, 
+  Calendar, 
+  User, 
+  Mail, 
+  Phone, 
+  Upload, 
+  Send, 
+  Building2, 
+  Globe, 
+  MapPin 
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
 import { toast } from 'sonner';
+import { ORGANIZATION_TYPES, COUNTRIES } from '@/data/mock-data';
 
 const RegistrationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -14,6 +35,10 @@ const RegistrationForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData.entries());
+    console.log('Registration submission:', data);
 
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -31,7 +56,7 @@ const RegistrationForm = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://storage.googleapis.com/dala-prod-public-storage/generated-images/4645829c-554d-4e05-a300-86fa2c4855fb/registration-bg-40952f3a-1776542575436.webp" 
+          src="https://storage.googleapis.com/dala-prod-public-storage/generated-images/4645829c-554d-4e05-a300-86fa2c4855fb/registration-bg-40952f3a-1776543060496.webp" 
           alt="Background" 
           className="w-full h-full object-cover"
         />
@@ -57,7 +82,7 @@ const RegistrationForm = () => {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl font-black mb-6"
             >
-              cooperative & Union Registration
+              Cooperative & Union Registration
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -130,18 +155,63 @@ const RegistrationForm = () => {
                       
                       <div className="grid grid-cols-1 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="cooperativeName">cooperative / Union Name</Label>
-                          <Input id="cooperativeName" placeholder="Official Registered Name" className="bg-background/50" required />
+                          <Label htmlFor="cooperativeName">Cooperative / Union Name</Label>
+                          <Input id="cooperativeName" name="organizationName" placeholder="Official Registered Name" className="bg-background/50" required />
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="organizationType">Type of Organization</Label>
+                            <Select name="organizationType" required>
+                              <SelectTrigger className="bg-background/50">
+                                <SelectValue placeholder="Select type" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {ORGANIZATION_TYPES.map((type) => (
+                                  <SelectItem key={type} value={type.toLowerCase()}>
+                                    {type}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="country">Country</Label>
+                            <Select name="country" required>
+                              <SelectTrigger className="bg-background/50">
+                                <SelectValue placeholder="Select country" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {COUNTRIES.map((country) => (
+                                  <SelectItem key={country} value={country.toLowerCase()}>
+                                    {country}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="address">Physical Address</Label>
+                          <div className="relative">
+                            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                            <Input id="address" name="address" placeholder="Street, City, Building..." className="pl-10 bg-background/50" required />
+                          </div>
                         </div>
                         
                         <div className="space-y-2">
                           <Label htmlFor="description">Description of Activities</Label>
-                          <Textarea 
-                            id="description" 
-                            placeholder="Describe your core activities, mission, and services offered..." 
-                            className="min-h-[100px] bg-background/50"
-                            required 
-                          />
+                          <div className="relative">
+                            <Building2 className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                            <Textarea 
+                              id="description" 
+                              name="description"
+                              placeholder="Describe your core activities, mission, and services offered..." 
+                              className="min-h-[100px] pl-10 bg-background/50"
+                              required 
+                            />
+                          </div>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -149,14 +219,14 @@ const RegistrationForm = () => {
                             <Label htmlFor="memberCount">Number of Members</Label>
                             <div className="relative">
                               <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                              <Input id="memberCount" type="number" className="pl-10 bg-background/50" placeholder="e.g. 1500" required />
+                              <Input id="memberCount" name="memberCount" type="number" className="pl-10 bg-background/50" placeholder="e.g. 1500" required />
                             </div>
                           </div>
                           <div className="space-y-2">
                             <Label htmlFor="creationDate">Date of Creation</Label>
                             <div className="relative">
                               <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                              <Input id="creationDate" type="date" className="pl-10 bg-background/50" required />
+                              <Input id="creationDate" name="creationDate" type="date" className="pl-10 bg-background/50" required />
                             </div>
                           </div>
                         </div>
@@ -164,7 +234,7 @@ const RegistrationForm = () => {
                         <div className="space-y-2">
                           <Label htmlFor="license">Upload Operating License (PDF/JPG)</Label>
                           <div className="border-2 border-dashed border-border rounded-xl p-6 transition-colors hover:border-primary/50 group bg-background/30">
-                            <input type="file" id="license" className="hidden" required />
+                            <input type="file" id="license" name="license" className="hidden" required />
                             <label htmlFor="license" className="flex flex-col items-center gap-2 cursor-pointer">
                               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                                 <Upload className="w-6 h-6" />
@@ -184,7 +254,7 @@ const RegistrationForm = () => {
                       
                       <div className="space-y-2">
                         <Label htmlFor="managerName">Manager Full Name</Label>
-                        <Input id="managerName" placeholder="Name of the person in charge" className="bg-background/50" required />
+                        <Input id="managerName" name="managerName" placeholder="Name of the person in charge" className="bg-background/50" required />
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -192,14 +262,14 @@ const RegistrationForm = () => {
                           <Label htmlFor="managerEmail">Manager Email</Label>
                           <div className="relative">
                             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                            <Input id="managerEmail" type="email" className="pl-10 bg-background/50" placeholder="manager@belcash.com" required />
+                            <Input id="managerEmail" name="managerEmail" type="email" className="pl-10 bg-background/50" placeholder="manager@belcash.com" required />
                           </div>
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="managerPhone">Manager Phone</Label>
                           <div className="relative">
                             <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                            <Input id="managerPhone" type="tel" className="pl-10 bg-background/50" placeholder="+254 ..." required />
+                            <Input id="managerPhone" name="managerPhone" type="tel" className="pl-10 bg-background/50" placeholder="+254 ..." required />
                           </div>
                         </div>
                       </div>

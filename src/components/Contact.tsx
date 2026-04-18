@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { CONTACT_INFO } from '@/data/mock-data';
 
 const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
@@ -35,7 +36,9 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-bold mb-1">Our Regional Hubs</h4>
-                  <p className="text-background/60">Nairobi, Kenya | Lagos, Nigeria<br />Accra, Ghana</p>
+                  <p className="text-background/60">
+                    {CONTACT_INFO.hubs.join(' | ')}
+                  </p>
                 </div>
               </div>
 
@@ -45,7 +48,13 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-bold mb-1">Email Us</h4>
-                  <p className="text-background/60">infor@belcash.com<br />support@helloopass.com</p>
+                  <p className="text-background/60">
+                    {CONTACT_INFO.emails.map((email, idx) => (
+                      <React.Fragment key={email}>
+                        {email}{idx < CONTACT_INFO.emails.length - 1 && <br />}
+                      </React.Fragment>
+                    ))}
+                  </p>
                 </div>
               </div>
 
@@ -55,7 +64,15 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-bold mb-1">Call Us</h4>
-                  <p className="text-background/60">+254 (0) 20 123 4567<br />Mon - Fri: 8am - 5pm EAT</p>
+                  <div className="space-y-2">
+                    {CONTACT_INFO.phones.map((phone) => (
+                      <p key={phone.number} className="text-background/60 flex flex-col sm:flex-row sm:gap-2 sm:items-baseline">
+                        <span className="font-semibold text-primary/90 text-sm whitespace-nowrap">{phone.label}:</span>
+                        <span className="tabular-nums">{phone.number}</span>
+                      </p>
+                    ))}
+                    <p className="text-background/40 text-xs mt-2">{CONTACT_INFO.hours}</p>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,21 +1,22 @@
-# Replace "SACCOs" with "cooperatives" Plan
+# Plan: Update Contact Phone Numbers
 
-## 1. Goal
-Replace all instances of the word "SACCO" and "SACCOs" with "cooperative" and "cooperatives" respectively across the landing page and data files to align with the new terminology.
+We will update the contact information to include specific phone numbers for English and French speakers.
 
-## 2. Targeted Files
-- `src/data/mock-data.ts`: Update all text content containing "SACCO" or "SACCOs".
-- `src/components/Hero.tsx`: Replace "SACCOs" in the descriptive paragraph.
-- `src/components/RegistrationForm.tsx`: Replace "SACCO" in the heading and input labels.
-- `src/components/About.tsx`: Replace "SACCOs" in the platform description.
-- `src/components/GlobalReach.tsx`: Replace "SACCOs" in the accessibility section.
-- `src/components/Footer.tsx`: Replace "SACCOs" in the company mission statement.
+## 1. Update Mock Data
+- Modify `src/data/mock-data.ts` to include a `CONTACT_INFO` constant.
+- This will store the phone numbers:
+    - English: `+251 91 326 4953`
+    - French: `+254 704 352801`
+- It will also store the emails and regional hubs to centralize contact data.
 
-## 3. Implementation Details
-- Maintain casing (e.g., "SACCOs" -> "cooperatives", "SACCO" -> "cooperative").
-- Ensure grammatical correctness after replacement.
-- Preserve all existing styling, layout, and functionality.
+## 2. Update Contact Component
+- Modify `src/components/Contact.tsx` to:
+    - Import `CONTACT_INFO` from `@/data/mock-data`.
+    - Replace the hardcoded phone number with the language-specific numbers from `CONTACT_INFO`.
+    - Clearly label the numbers as "English Speaker" and "French Speaker".
+    - Update the email and regional hubs sections to use data from `CONTACT_INFO` for consistency.
+    - Ensure the styling remains consistent with the "Warm African" theme.
 
-## 4. Verification
-- Validate the build to ensure no syntax errors were introduced.
-- Review the landing page to confirm all instances have been updated.
+## 3. Verification
+- Validate the build to ensure no TypeScript errors.
+- Confirm the new phone numbers are displayed correctly in the Contact section.

@@ -294,3 +294,37 @@ export const TESTIMONIALS = [
     rating: 5,
   },
 ];
+
+export const ORGANIZATION_TYPES = [
+  'Cooperative',
+  'Union',
+  'SACCO',
+  'NGO',
+  'Private Enterprise',
+  'Micro-finance Institution',
+  'Government Body',
+  'Other'
+];
+
+export const COUNTRIES = [
+  'Kenya', 'Ethiopia', 'Nigeria', 'Ghana', 'Rwanda', 
+  'South Africa', 'Tanzania', 'Uganda', 'Senegal', 'Ivory Coast',
+  'Democratic Republic of Congo', 'Zambia', 'Zimbabwe', 'Morocco', 'Egypt'
+];
+
+export const CONTACT_INFO = {
+  hubs: [
+    'Nairobi, Kenya',
+    'Lagos, Nigeria',
+    'Accra, Ghana'
+  ],
+  emails: [
+    'infor@belcash.com',
+    'support@helloopass.com'
+  ],
+  phones: [
+    { label: 'English Speaker', number: '+251 91 326 4953' },
+    { label: 'French Speaker', number: '+254 704 352801' }
+  ],
+  hours: 'Mon - Fri: 8am - 5pm EAT'
+};
