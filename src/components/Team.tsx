@@ -1,7 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { TEAM } from '@/data/mock-data';
-import { Twitter, Linkedin, Instagram } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { TEAM } from "@/data/mock-data";
+import { SOCIALS } from "@/data/mock-data";
 
 const Team = () => {
   return (
@@ -33,15 +33,22 @@ const Team = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-8">
                   <div className="flex gap-4">
-                    <a href={member.socials.linkedin} className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors">
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                    <a href={member.socials.twitter} className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors">
-                      <Twitter className="w-5 h-5" />
-                    </a>
-                    <a href={member.socials.instagram} className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors">
-                      <Instagram className="w-5 h-5" />
-                    </a>
+                    {SOCIALS.map(({ key, Icon }) => {
+                      const url = member.socials?.[key as keyof typeof member.socials];
+                      if (!url) return null;
+
+                      return (
+                        <a
+                          key={key}
+                          href={url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                        >
+                          <Icon className="w-5 h-5" />
+                        </a>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

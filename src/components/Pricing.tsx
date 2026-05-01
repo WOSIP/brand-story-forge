@@ -1,36 +1,11 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { 
-  PRICING_PACKAGES, 
-  PRICING_COMPARISON, 
-  HOW_TO_CHOOSE, 
-  FAQS 
-} from '@/data/mock-data';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from '@/components/ui/table';
-import { 
-  Card, 
-  CardContent, 
-  CardHeader, 
-  CardTitle, 
-  CardDescription,
-  CardFooter
-} from '@/components/ui/card';
-import { 
-  Accordion, 
-  AccordionContent, 
-  AccordionItem, 
-  AccordionTrigger 
-} from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
-import { Check, X, HelpCircle, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
-
+import { motion } from "framer-motion";
+import { PRICING_PACKAGES, PRICING_ICONS, PRICING_COMPARISON, HOW_TO_CHOOSE, FAQS } from "@/data/mock-data";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { Check, X, HelpCircle, ShieldCheck, Zap } from "lucide-react";
+import { showComingSoon } from "@/lib/util";
 const Pricing = () => {
   return (
     <section id="pricing" className="py-24 bg-background relative overflow-hidden">
@@ -40,7 +15,7 @@ const Pricing = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -48,7 +23,7 @@ const Pricing = () => {
           >
             Packages for Communities
           </motion.h2>
-          <motion.h3 
+          <motion.h3
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -57,14 +32,14 @@ const Pricing = () => {
           >
             Choose the perfect fit for your community
           </motion.h3>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
             className="text-lg text-muted-foreground"
           >
-            From small associations to national unions, Helloopass provides the tools you need to grow your digital economy.
+            From small associations to national unions, HellOOpass provides the tools you need to grow your digital economy.
           </motion.p>
         </div>
 
@@ -91,11 +66,11 @@ const Pricing = () => {
                 </TableHeader>
                 <TableBody>
                   {PRICING_COMPARISON.features.map((feature, idx) => (
-                    <TableRow key={feature.name} className={idx % 2 === 0 ? 'bg-transparent' : 'bg-muted/10'}>
+                    <TableRow key={feature.name} className={idx % 2 === 0 ? "bg-transparent" : "bg-muted/10"}>
                       <TableCell className="font-medium py-4">{feature.name}</TableCell>
                       {feature.values.map((val, i) => (
                         <TableCell key={i} className="text-center py-4">
-                          {typeof val === 'boolean' ? (
+                          {typeof val === "boolean" ? (
                             val ? (
                               <Check className="w-5 h-5 text-green-600 mx-auto" />
                             ) : (
@@ -124,8 +99,10 @@ const Pricing = () => {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
             >
-              <Card className={`h-full flex flex-col transition-all duration-300 hover:shadow-2xl border-2 ${pkg.id === 'standard' ? 'border-primary shadow-lg ring-4 ring-primary/10' : 'border-border'}`}>
-                {pkg.id === 'standard' && (
+              <Card
+                className={`h-full flex flex-col transition-all duration-300 hover:shadow-2xl border-2 ${pkg.id === "standard" ? "border-primary shadow-lg ring-4 ring-primary/10" : "border-border"}`}
+              >
+                {pkg.id === "standard" && (
                   <div className="bg-primary text-primary-foreground text-center text-xs font-bold py-1 uppercase tracking-widest">
                     Most Popular
                   </div>
@@ -135,15 +112,28 @@ const Pricing = () => {
                   <CardDescription className="text-base leading-relaxed">{pkg.tagline}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow space-y-8">
-                  <div className="space-y-4">
+                  <div className="space-y-5">
                     <h5 className="text-sm font-bold uppercase tracking-wider text-primary">Key Details</h5>
-                    <div className="space-y-3">
-                      {pkg.details.map((detail, i) => (
-                        <div key={i} className="flex justify-between items-start gap-4 pb-2 border-b border-border/50 last:border-0">
-                          <span className="text-xs text-muted-foreground font-medium">{detail.label}</span>
-                          <span className="text-sm font-bold text-right">{detail.value}</span>
-                        </div>
-                      ))}
+                    <div className="rounded-xl border border-border/50 bg-muted/30 overflow-hidden">
+                      {pkg.details.map((detail, i) => {
+                        const Icon = PRICING_ICONS[detail.label];
+
+                        return (
+                          <div
+                            key={i}
+                            className="flex items-center justify-between gap-4 px-4 py-3 border-b border-border/30 last:border-0"
+                          >
+                            {/* Left side */}
+                            <div className="flex items-center gap-2">
+                              {Icon && <Icon className="w-4 h-4 text-primary" />}
+                              <span className="text-xs text-muted-foreground font-medium">{detail.label}</span>
+                            </div>
+
+                            {/* Right side */}
+                            <span className="text-xs font-semibold text-right text-foreground">{detail.value}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -168,9 +158,10 @@ const Pricing = () => {
                 </CardContent>
                 <CardFooter className="pt-6">
                   <div className="w-full">
-                    <Button 
-                      variant={pkg.id === 'standard' ? 'default' : 'outline'} 
+                    <Button
+                      variant={pkg.id === "standard" ? "default" : "outline"}
                       className="w-full py-6 text-base font-bold rounded-xl"
+                      onClick={() => showComingSoon(`${pkg.name} Plan`, "Subscriptions are coming soon.")}
                     >
                       {pkg.action}
                     </Button>
@@ -194,7 +185,10 @@ const Pricing = () => {
               </p>
               <div className="space-y-4">
                 {HOW_TO_CHOOSE.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between p-4 bg-white/10 rounded-xl backdrop-blur-sm border border-white/10">
+                  <div
+                    key={i}
+                    className="flex items-center justify-between p-4 bg-white/10 rounded-xl backdrop-blur-sm border border-white/10"
+                  >
                     <span className="font-medium">{item.group}</span>
                     <span className="font-black bg-white text-primary px-3 py-1 rounded-lg text-sm">{item.package}</span>
                   </div>
@@ -209,7 +203,12 @@ const Pricing = () => {
               <p className="text-primary-foreground/80 mb-8">
                 Our community success managers can help you assess your needs and select the best plan.
               </p>
-              <Button variant="secondary" size="lg" className="rounded-full font-bold px-8">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="rounded-xl font-semibold px-6 py-5 text-sm shadow-md hover:shadow-lg transition-all"
+                onClick={() => showComingSoon("Talk to an Expert", "Expert consultations will be available soon.")}
+              >
                 Speak with an Expert
               </Button>
             </div>
@@ -230,9 +229,7 @@ const Pricing = () => {
                 <AccordionTrigger className="text-left font-bold text-lg hover:no-underline hover:text-primary transition-colors">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-base leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
+                <AccordionContent className="text-muted-foreground text-base leading-relaxed">{faq.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
@@ -257,11 +254,11 @@ const Pricing = () => {
                 {PRICING_PACKAGES.map((pkg) => (
                   <TableRow key={pkg.id}>
                     <TableCell className="font-bold text-primary">{pkg.name}</TableCell>
-                    <TableCell>{pkg.details.find(d => d.label === 'Maximum Members')?.value}</TableCell>
-                    <TableCell>{pkg.details.find(d => d.label === 'Monthly Transactions')?.value || 'Not specified'}</TableCell>
-                    <TableCell>{pkg.details.find(d => d.label === 'Setup Fee')?.value.split(' ')[0]}</TableCell>
-                    <TableCell>{pkg.details.find(d => d.label === 'Annual Fee')?.value.split(' ')[0]}</TableCell>
-                    <TableCell>{pkg.details.find(d => d.label === 'Transaction Fee')?.value}</TableCell>
+                    <TableCell>{pkg.details.find((d) => d.label === "Maximum Members")?.value}</TableCell>
+                    <TableCell>{pkg.details.find((d) => d.label === "Monthly Transactions")?.value || "Not specified"}</TableCell>
+                    <TableCell>{pkg.details.find((d) => d.label === "Setup Fee")?.value.split(" ")[0]}</TableCell>
+                    <TableCell>{pkg.details.find((d) => d.label === "Annual Fee")?.value.split(" ")[0]}</TableCell>
+                    <TableCell>{pkg.details.find((d) => d.label === "Transaction Fee")?.value}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -270,9 +267,7 @@ const Pricing = () => {
         </div>
 
         <div className="mt-20 text-center">
-          <p className="italic text-muted-foreground font-medium">
-            Helloopass – Empowering Communities Through Digital Trade
-          </p>
+          <p className="italic text-muted-foreground font-medium">HellOOpass – Empowering Communities Through Digital Trade</p>
         </div>
       </div>
     </section>

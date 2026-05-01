@@ -1,16 +1,16 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { toast } from 'sonner';
-import { CONTACT_INFO } from '@/data/mock-data';
+import React from "react";
+import { motion } from "framer-motion";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { CONTACT_INFO } from "@/data/mock-data";
+import { showComingSoon } from "@/lib/util";
 
 const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Message sent! Our support team will respond within 24 hours.');
+    showComingSoon("Send Message", "Messaging support will be available soon.");
     (e.target as HTMLFormElement).reset();
   };
 
@@ -18,11 +18,7 @@ const Contact = () => {
     <section id="contact" className="py-24 bg-foreground text-background">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <h2 className="text-sm font-bold text-primary tracking-widest uppercase mb-4">Support & Inquiries</h2>
             <h3 className="text-4xl font-bold mb-8">Have Questions? We're Here to Help.</h3>
             <p className="text-background/70 text-lg mb-12">
@@ -36,9 +32,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-bold mb-1">Our Regional Hubs</h4>
-                  <p className="text-background/60">
-                    {CONTACT_INFO.hubs.join(' | ')}
-                  </p>
+                  <p className="text-background/60">{CONTACT_INFO.hubs.join(" | ")}</p>
                 </div>
               </div>
 
@@ -51,7 +45,8 @@ const Contact = () => {
                   <p className="text-background/60">
                     {CONTACT_INFO.emails.map((email, idx) => (
                       <React.Fragment key={email}>
-                        {email}{idx < CONTACT_INFO.emails.length - 1 && <br />}
+                        {email}
+                        {idx < CONTACT_INFO.emails.length - 1 && <br />}
                       </React.Fragment>
                     ))}
                   </p>
@@ -92,7 +87,12 @@ const Contact = () => {
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-foreground/70">Email Address</label>
-                  <Input type="email" placeholder="john@example.com" className="h-12 border-border text-foreground focus:ring-primary" required />
+                  <Input
+                    type="email"
+                    placeholder="john@example.com"
+                    className="h-12 border-border text-foreground focus:ring-primary"
+                    required
+                  />
                 </div>
               </div>
 
@@ -103,18 +103,22 @@ const Contact = () => {
 
               <div className="space-y-2">
                 <label className="text-sm font-bold text-foreground/70">Message</label>
-                <Textarea 
-                  placeholder="Your message..." 
-                  className="min-h-[120px] border-border text-foreground focus:ring-primary" 
-                  required 
+                <Textarea
+                  placeholder="Your message..."
+                  className="min-h-[120px] border-border text-foreground focus:ring-primary"
+                  required
                 />
               </div>
 
-              <Button className="w-full h-14 text-lg gap-2 bg-primary hover:bg-primary/90">
+              <Button type="submit" className="w-full h-14 text-lg gap-2 bg-primary hover:bg-primary/90 transition-all">
                 Send Message <Send className="w-5 h-5" />
               </Button>
               <p className="text-center text-xs text-foreground/50">
-                For formal SACCO registration, please use the <a href="#registration" className="text-primary font-bold hover:underline">Registration Form</a>.
+                For formal SACCO registration, please use the{" "}
+                <a href="#registration" className="text-primary font-bold hover:underline">
+                  Registration Form
+                </a>
+                .
               </p>
             </form>
           </motion.div>

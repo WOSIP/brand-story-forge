@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { BLOG_POSTS } from '@/data/mock-data';
-import { Search, Calendar, User, Clock, ArrowRight } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { BLOG_POSTS } from "@/data/mock-data";
+import { Search, Calendar, Clock, ArrowRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 
 const Blog = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredPosts = BLOG_POSTS.filter(post => 
-    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.category.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPosts = BLOG_POSTS.filter(
+    (post) =>
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.category.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
@@ -24,8 +25,8 @@ const Blog = () => {
           </div>
           <div className="relative w-full md:w-96">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input 
-              placeholder="Search articles..." 
+            <Input
+              placeholder="Search articles..."
               className="pl-10 h-12 bg-card border-border"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -46,24 +47,33 @@ const Blog = () => {
                 className="group flex flex-col h-full bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/30 hover:shadow-xl transition-all"
               >
                 <div className="relative h-60 overflow-hidden">
-                  <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground hover:bg-primary/90 border-none">{post.category}</Badge>
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground hover:bg-primary/90 border-none">
+                    {post.category}
+                  </Badge>
                 </div>
                 <div className="p-8 flex flex-col flex-grow">
                   <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-                    <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {post.date}</span>
-                    <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {post.readTime}</span>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-3 h-3" /> {post.date}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" /> {post.readTime}
+                    </span>
                   </div>
-                  <h4 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                    {post.title}
-                  </h4>
-                  <p className="text-muted-foreground text-sm mb-6 line-clamp-3">
-                    {post.excerpt}
-                  </p>
+                  <h4 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">{post.title}</h4>
+                  <p className="text-muted-foreground text-sm mb-6 line-clamp-3">{post.excerpt}</p>
                   <div className="mt-auto pt-6 border-t border-border flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary border border-primary/20">
-                        {post.author.split(' ').map(n => n[0]).join('')}
+                        {post.author
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
                       </div>
                       <span className="text-xs font-semibold">{post.author}</span>
                     </div>
@@ -80,10 +90,7 @@ const Blog = () => {
         {filteredPosts.length === 0 && (
           <div className="text-center py-20 bg-card rounded-2xl border-2 border-dashed border-border">
             <p className="text-muted-foreground text-lg">No articles found matching "{searchTerm}"</p>
-            <button 
-              onClick={() => setSearchTerm('')}
-              className="text-primary font-bold mt-2"
-            >
+            <button onClick={() => setSearchTerm("")} className="text-primary font-bold mt-2">
               Clear Search
             </button>
           </div>
