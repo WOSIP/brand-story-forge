@@ -8,7 +8,7 @@ import { Check, X, HelpCircle, ShieldCheck, Zap } from "lucide-react";
 import { showComingSoon } from "@/lib/util";
 const Pricing = () => {
   return (
-    <section id="pricing" className="py-24 bg-background relative overflow-hidden">
+    <section id="pricing" className="py-10 bg-background relative overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
@@ -90,7 +90,7 @@ const Pricing = () => {
         </div>
 
         {/* Detailed Package Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
           {PRICING_PACKAGES.map((pkg, idx) => (
             <motion.div
               key={pkg.id}
@@ -175,8 +175,39 @@ const Pricing = () => {
           ))}
         </div>
 
+        {/* Summary Table */}
+        <div className="bg-card rounded-2xl p-8 border border-border shadow-sm text-center mb-10">
+          <h4 className="text-2xl font-bold mb-8">Quick Summary</h4>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-center font-bold">Package</TableHead>
+                  <TableHead className="text-center font-bold">Members</TableHead>
+                  <TableHead className="text-center font-bold">Monthly Transactions</TableHead>
+                  <TableHead className="text-center font-bold">Setup</TableHead>
+                  <TableHead className="text-center font-bold">Annual Fee</TableHead>
+                  <TableHead className="text-center font-bold">Trans. Fee</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {PRICING_PACKAGES.map((pkg) => (
+                  <TableRow key={pkg.id}>
+                    <TableCell className="font-bold text-primary">{pkg.name}</TableCell>
+                    <TableCell>{pkg.details.find((d) => d.label === "Maximum Members")?.value}</TableCell>
+                    <TableCell>{pkg.details.find((d) => d.label === "Monthly Transactions")?.value || "Not specified"}</TableCell>
+                    <TableCell>{pkg.details.find((d) => d.label === "Setup Fee")?.value.split(" ")[0]}</TableCell>
+                    <TableCell>{pkg.details.find((d) => d.label === "Annual Fee")?.value.split(" ")[0]}</TableCell>
+                    <TableCell>{pkg.details.find((d) => d.label === "Transaction Fee")?.value}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+
         {/* How to Choose */}
-        <div className="bg-primary rounded-3xl p-10 mb-24 text-primary-foreground">
+        <div className="bg-primary rounded-3xl p-10 mb-10 text-primary-foreground">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <h4 className="text-3xl font-bold mb-4">How to Choose?</h4>
@@ -216,7 +247,7 @@ const Pricing = () => {
         </div>
 
         {/* FAQ Section */}
-        <div className="max-w-4xl mx-auto mb-24">
+        <div className="max-w-4xl mx-auto mb-10">
           <div className="text-center mb-12">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-accent/10 text-accent rounded-full mb-4">
               <HelpCircle className="w-6 h-6" />
@@ -235,38 +266,7 @@ const Pricing = () => {
           </Accordion>
         </div>
 
-        {/* Summary Table */}
-        <div className="bg-card rounded-2xl p-8 border border-border shadow-sm text-center">
-          <h4 className="text-2xl font-bold mb-8">Quick Summary</h4>
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="text-center font-bold">Package</TableHead>
-                  <TableHead className="text-center font-bold">Members</TableHead>
-                  <TableHead className="text-center font-bold">Monthly Transactions</TableHead>
-                  <TableHead className="text-center font-bold">Setup</TableHead>
-                  <TableHead className="text-center font-bold">Annual Fee</TableHead>
-                  <TableHead className="text-center font-bold">Trans. Fee</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {PRICING_PACKAGES.map((pkg) => (
-                  <TableRow key={pkg.id}>
-                    <TableCell className="font-bold text-primary">{pkg.name}</TableCell>
-                    <TableCell>{pkg.details.find((d) => d.label === "Maximum Members")?.value}</TableCell>
-                    <TableCell>{pkg.details.find((d) => d.label === "Monthly Transactions")?.value || "Not specified"}</TableCell>
-                    <TableCell>{pkg.details.find((d) => d.label === "Setup Fee")?.value.split(" ")[0]}</TableCell>
-                    <TableCell>{pkg.details.find((d) => d.label === "Annual Fee")?.value.split(" ")[0]}</TableCell>
-                    <TableCell>{pkg.details.find((d) => d.label === "Transaction Fee")?.value}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </div>
-
-        <div className="mt-20 text-center">
+        <div className="mt-10 text-center">
           <p className="italic text-muted-foreground font-medium">HellOOpass – Empowering Communities Through Digital Trade</p>
         </div>
       </div>

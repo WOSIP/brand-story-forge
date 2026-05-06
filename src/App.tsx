@@ -11,6 +11,7 @@ import Team from "./components/Team";
 import CaseStudies from "./components/CaseStudies";
 import Blog from "./components/Blog";
 import RegistrationForm from "./components/RegistrationForm";
+import HowItWorks from "./components/HowItWorks";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import IncomeGeneration from "./components/IncomeGeneration";
@@ -56,6 +57,9 @@ function LandingPage() {
       <section id="pricing">
         <Pricing />
       </section>
+      <section id="how-it-works">
+        <HowItWorks />
+      </section>
       <section id="timeline">
         <Timeline />
       </section>
@@ -71,6 +75,7 @@ function LandingPage() {
       <section id="registration">
         <RegistrationForm />
       </section>
+
       <section id="contact">
         <Contact />
       </section>
